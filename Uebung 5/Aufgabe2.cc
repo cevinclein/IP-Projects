@@ -113,4 +113,5 @@ void printArray_10()
 int main()
 {
     printArray_10();
+    return 0;
 }
