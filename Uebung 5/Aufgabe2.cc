@@ -1,23 +1,6 @@
 #include <iostream>
 
-//Methode zur Sortierung eines int arrays in aufsteigender Reihenfolge.
-void sort(int *array, int length)
-{
-    int i, j,tmp;
 
-    for (i = 1; i < length ; i++) 
-    {
-        for (j = 0; j < length - i ; j++) 
-        {
-            if (array[j] > array[j+1]) 
-            {
-                tmp = array[j];
-                array[j] = array[j+1];
-                array[j+1] = tmp;
-            }
-        }
-    }
-}
 
 //Ausgabefunktion, macht dass was in der Aufgabe gefragt wurde
 //Bemerkung: Elemente die nicht eingegeben wurden werden als 0 Gekennzeichnet 
@@ -33,12 +16,27 @@ void printArray_10()
         {
             int check_null; //prüfe ob letzte Eingabe 0 ist, dann wird ganzes Array ausgegeben
 
-            std::cout<< "Bitte " << i + 1 << " Wert eingeben:" << std::endl;
+            std::cout<< "Bitte " << i + 1 << ". Wert eingeben:" << std::endl;
             std::cin >> check_null;
 
             if (check_null == 0)
-            {
-                sort(arr, i); //sortiert nur die eingegeben Werte
+            { 
+                //Sortiert das Array nach der Größe, aufsteigende Reihenfolge
+                //Es werden nur die eigegebenen Werte sortiert!!!
+                int k, j,tmp;
+                for (k = 1; k < i ; k++) 
+                {
+                    for (j = 0; j < i - k ; j++) 
+                    {
+                        if (arr[j] > arr[j+1]) 
+                        {
+                            tmp = arr[j];
+                            arr[j] = arr[j+1];
+                            arr[j+1] = tmp;
+                        }
+                    }
+                }
+
                 std::cout<< "Array = [ ";
 
                 for(int i = 0; i < 10; i++)
@@ -46,7 +44,7 @@ void printArray_10()
                     std::cout<< arr[i] << " ";
                 }
 
-                std::cout<< "]";
+                std::cout<< "]" << std::endl;
                 std::exit(0);
                 break;
             }
@@ -60,7 +58,7 @@ void printArray_10()
            
         }
 
-        std::cout<< "Bitte " << i + 1 << " Wert eingeben:" <<std::endl;
+        std::cout<< "Bitte " << i + 1 << ". Wert eingeben:" <<std::endl;
 
         std::cin>> arr[i];
 
@@ -75,7 +73,7 @@ void printArray_10()
         //Bei -1 Programm terminieren
         if(arr[i] == -1)
         {
-            std::cout<< "Programm ist terminiert.";
+            std::cout<< "Programm ist terminiert." << std::endl;
             std::exit(0);
             break;
         }
@@ -83,15 +81,30 @@ void printArray_10()
         //Ausgabe des Arrays, von den Werten die bis zur 0-Eingabe eingegeben wurden.
         if(arr[i] == 0)
         {
+            //Sortiert das Array nach der Größe, aufsteigende Reihenfolge
+            //Es werden nur die eigegebenen Werte sortiert!!!
+            int k, j,tmp;
+            for (k = 1; k < i ; k++) 
+            {
+                for (j = 0; j < i - k ; j++) 
+                {
+                    if (arr[j] > arr[j+1]) 
+                    {
+                        tmp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = tmp;
+                    }
+                }
+            }
+
             std::cout<< "Array = [ ";
-            sort(arr, i); //sortiert nur die eingegeben Werte
 
             for(int i = 0; i < 10; i++)
             {
                 std::cout<< arr[i] << " ";
             }
 
-            std::cout<< "]";
+            std::cout<< "]" << std::endl;
             std::exit(0);
         }
     }
