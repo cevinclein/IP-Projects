@@ -1,3 +1,0 @@
-/Users/kevinklein/Documents/Uni/ipk/Uebung6/vorlage_src/build/CMakeFiles/rebuild_cache.dir
-/Users/kevinklein/Documents/Uni/ipk/Uebung6/vorlage_src/build/CMakeFiles/edit_cache.dir
-/Users/kevinklein/Documents/Uni/ipk/Uebung6/vorlage_src/build/CMakeFiles/vrn_station_distance.dir
