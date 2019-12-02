@@ -3,6 +3,7 @@
 #include <cmath>
 #include <string> 
 #include <sstream>
+#include <vector>
 
 namespace ipk
 {
@@ -37,7 +38,7 @@ namespace ipk
                     std::pair<double, double> pair1 = std::make_pair(this->lat, this->lon);
                     std::pair<double, double> pair2 = std::make_pair(other.lat, other.lon);
 
-                    double f =distance_between_coordinates(pair1, pair2);
+                    double f = this->distance_between_coordinates(pair1, pair2);
                     return f;
                 }
 
@@ -89,11 +90,11 @@ namespace ipk
                 std::string to_string() const 
                 {
                     std::string str = "";
-                    std::stringstream s1; s1 << "\"longName:\"" << ": " << "\"" << _long_name << "\"" << std::endl;
+                    std::stringstream s1; s1 <<"Station" <<std::endl <<"{"<< std::endl << "\"longName:\"" << ": " << "\"" << _long_name << "\"" << std::endl;
                     std::stringstream s2; s2 << "\"shortName:\"" << ": " << "\"" << _short_name << "\"" << std::endl;;
                     std::stringstream s3; s3 << "\"latitude:\"" << ": " << "\"" << std::to_string(_coord.latitude()) << "\"" << std::endl;;
                     std::stringstream s4; s4 << "\"longtitude:\"" << ": " << "\"" << std::to_string(_coord.longitude()) << "\"" << std::endl;
-                    std::stringstream s5; s5 << "\"elementID:\"" << ": " << std::to_string(_element_id);
+                    std::stringstream s5; s5 << "\"elementID:\"" << ": " << std::to_string(_element_id) << std::endl << "}";
 
                     std::stringstream ss; ss << s1.str() << s2.str() << s3.str() << s4.str() << s5.str();
                     str = ss.str();
@@ -133,6 +134,34 @@ namespace ipk
             }
 
             return stations;
-        }  
+        } 
+
+        std::vector<Station> request_all_stations()
+        {
+            ipk::http::Request req;
+            req.headers({{"RNV_API_TOKEN: dcqh99ct00frb38u9hevg9e3tt"},
+                        {"content-type: test/json"}});
+            req.perform(
+                "rnv.the-agent-factory.de/easygo2/api/regions/rnv/modules/stations/packages/1", 8080
+            );
+            std::string output = req.result();
+            nlohmann::json json = nlohmann::json::parse(output);
+                    return json_to_stations(json);
+        } 
+
+        std::vector<std::pair<Station, double>> filter_nearby_stations(const std::vector<Station> &stations,
+        const geo::Coordinate &target, double max_distance)
+        {
+            std::vector<std::pair<Station, double>> vec;
+            for (auto it:request_all_stations())
+            {
+                if(target.distance_to(it.coord()) <= max_distance)
+                {
+                    vec.push_back(std::make_pair (it, target.distance_to(it.coord())));
+                }
+            }
+
+            return vec;
+        }
     }   
 } 
