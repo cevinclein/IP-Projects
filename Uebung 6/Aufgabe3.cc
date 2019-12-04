@@ -15,10 +15,6 @@ void push(int element)
   stin.stack_elements[stin.size] = element;
   stin.size++;
 }
-bool empty()
-{
-  return stin.size == 0;
-}
 
 int pop()
 {
@@ -34,7 +30,6 @@ int make_number(char* val)
   {
     result += (int(val[i]) - 48) * pow(10, strlen(val) - i - 1);
   }
-
   return result;
 }
 
@@ -55,6 +50,9 @@ int main(int argc, char* argv[])
 
   //War letzter Wert von arg eine Zahl?
   bool isNumber = false;
+
+  //Keine Operanten im Ausdruck
+  bool noOperation = true;
 
   // Schleife, die die Zeichen der Eingabe nacheinander ablaeuft
   // strlen gibt die Anzahl der Zeichen in der Zeichenkette
@@ -96,6 +94,7 @@ int main(int argc, char* argv[])
       }
 
       isNumber = false; 
+      noOperation = false;
     } 
     else if (arg[i] == ' ' && isNumber == true)
     {
@@ -119,12 +118,21 @@ int main(int argc, char* argv[])
     }     
   }
 
-  //Wenn Stapel leer ist, hat keine Operation stattgefunden.
-  if(empty())
+  //Es kann keine Operation ohne Operanten durchgeführt werden!
+  if(noOperation)
   {
-    //Es wird also ohne was, nur die eingegebene Zahl ge-push-t.
-    push(make_number(arg));
+    std::cout<< "Keine Operanten, nichts berechnet:" <<std::endl;
+    std::cout<< arg <<std::endl;
+    exit(0);
   }
 
+  //Am Ende muss Stapel nur noch ein Element haben!
+  if(stin.size > 1)
+  {
+    std::cout<<"Fehler, falsche eingabe!!!"<< std::endl;
+    exit(0);
+  }
+
+  //Wenn alles passt gebe Ergebnis aus.
   std::cout<< "Das Ergebnis von: " << arg << " lautet: " << pop() <<std::endl;
 }
