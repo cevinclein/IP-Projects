@@ -105,7 +105,7 @@ int main()
 
     //Wenn true wird das gemacht was in Aufgabe 3c steht, teste für große werte.
     //Ansonsten ein paar Ausgaben zum Testen der Queue.
-    bool laufZeitTest = true;
+    bool laufZeitTest = false;
 
     if(laufZeitTest)
     {
@@ -147,4 +147,6 @@ int main()
         print_List_Elems(li);
         std::cout<<std::endl;
     }
+
+    return 0;
 }

@@ -1,0 +1,12 @@
+- Wenn Hase und Igel auf das selbe element Zeigen dann hat die Liste einen
+Zyklus. Wenn einer der beiden auf null zeigt, dann hat die Liste keinen Zyklus.
+Es ist egal ob die Elemente in gerader Anzahl vorkommen oder nicht, oder ob die
+Liste einen linearen Anteil hat, hase und igel werden immer im Zyklus landen
+Und sich treffen.
+
+-Will man die Länge des Zyklus' bestimmen so weiß man ja, dass hase oder igel 
+Im Zyklus ist. Also mache man eine Schleife und setze das erste Listenelement
+Auf igel->next oder Hase->next. Beim durchlauf Schritte zählen bis man wieder da 
+Angekommen ist, wo man angefangen hat, es gibt ja keinen null-pointer
+Der die schleife abbrechen würde.
+--> siehe Algorithmus in Aufgabe 2b, wo das hier gesagte umgesetzt wurde.
