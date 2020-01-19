@@ -40,6 +40,7 @@ void writeLinesToFile(std::string s)
 int main(int argc, char **argv)
 {
     //Datei von standarteingabe lesen.
+    //Bitte ohne Dateiendung angeben, also ohne .txt, sondern nur der Name der Datei!
     writeLinesToFile(argv[1]);
     return 0;
 }
